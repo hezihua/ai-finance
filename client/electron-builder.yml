@@ -1,0 +1,22 @@
+appId: com.hezihua.ai-finance
+productName: ai-finance
+copyright: Copyright © hezihua
+asar: true
+npmRebuild: false
+directories:
+  output: release
+  buildResources: resources
+files:
+  - out/**/*
+  - package.json
+extraResources:
+  - from: resources/offline.html
+    to: offline.html
+win:
+  signAndEditExecutable: false
+  target:
+    - target: portable
+      arch:
+        - x64
+portable:
+  artifactName: ai-finance-win32-${arch}.exe

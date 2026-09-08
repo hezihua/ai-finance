@@ -2,11 +2,11 @@ services:
   ai-finance:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: web/Dockerfile
     ports:
       - "${PORT:-3000}:3000"
     env_file:
-      - path: .env
+      - path: web/.env
         required: false
     environment:
       NODE_ENV: production

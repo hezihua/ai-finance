@@ -1,0 +1,58 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.24.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build Windows exe
+        working-directory: client
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+          WEB_URL: ${{ vars.WEB_URL }}
+          ELECTRON_MIRROR: https://npmmirror.com/mirrors/electron/
+          ELECTRON_BUILDER_BINARIES_MIRROR: https://npmmirror.com/mirrors/electron-builder-binaries/
+        run: pnpm pack:win
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ai-finance-win-x64
+          path: |
+            client/release/ai-finance-win32-*.exe
+            !client/release/*-unpacked/**
+
+  publish:
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: [windows]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: ai-finance-win-x64
+          path: artifacts
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/*
+          generate_release_notes: true
+          body: |
+            ## 下载
+
+            - [Windows x64 便携版](https://github.com/hezihua/ai-finance/releases/latest/download/ai-finance-win32-x64.exe)
+
+            桌面端会加载 Web 服务地址（打包时的 `WEB_URL`）。开发调试请先启动 Web：`pnpm dev:web`。

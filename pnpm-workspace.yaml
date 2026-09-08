@@ -1,5 +1,9 @@
 packages:
-  - .
+  - web
+  - client
 
 allowBuilds:
+  electron: true
+  electron-winstaller: true
+  esbuild: true
   unrs-resolver: true

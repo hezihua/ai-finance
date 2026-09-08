@@ -2,28 +2,20 @@
   "name": "ai-finance",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@11.24.0",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
-  },
-  "dependencies": {
-    "lightweight-charts": "^5.0.7",
-    "lucide-react": "^0.544.0",
-    "next": "16.3.4",
-    "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "dev": "pnpm --filter @ai-finance/web dev",
+    "dev:web": "pnpm --filter @ai-finance/web dev",
+    "dev:client": "pnpm --filter @ai-finance/client dev",
+    "dev:all": "concurrently -n web,client -c cyan,magenta \"pnpm dev:web\" \"pnpm dev:client\"",
+    "build": "pnpm -r build",
+    "build:web": "pnpm --filter @ai-finance/web build",
+    "build:client": "pnpm --filter @ai-finance/client build",
+    "pack:win": "pnpm --filter @ai-finance/client pack:win",
+    "start": "pnpm --filter @ai-finance/web start",
+    "lint": "pnpm -r lint"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.3.4",
-    "tailwindcss": "^4",
-    "typescript": "^5"
-  },
-  "packageManager": "pnpm@11.24.0"
+    "concurrently": "^9.2.1"
+  }
 }
