@@ -58,6 +58,41 @@ pnpm dev:all
 
 Electron 默认加载 `http://localhost:3000`，可通过 `WEB_URL` 覆盖。
 
+## 部署到 Vercel（Web）
+
+仓库根目录已配置 `vercel.json`（monorepo 构建 `@ai-finance/web`）。
+
+```bash
+pnpm install
+
+# 首次：登录并链接项目
+pnpm vercel:link
+# 或：vercel login && vercel link
+
+# 在 Vercel Dashboard → Settings → Environment Variables 添加：
+#   HITHINK_FINANCE_API_KEY
+#   OPENROUTER_API_KEY（可选）
+#   OPENROUTER_MODEL（可选）
+#   OPENROUTER_HTTP_REFERER=https://你的项目.vercel.app
+#   OPENROUTER_APP_TITLE=ai-finance
+
+# 预览部署
+pnpm deploy:preview
+
+# 生产部署
+pnpm deploy
+# 或
+pnpm deploy:vercel
+```
+
+部署成功后拿到 URL，例如 `https://ai-finance-xxx.vercel.app`，再打包桌面端：
+
+```bash
+WEB_URL=https://ai-finance-xxx.vercel.app pnpm pack:win
+```
+
+也可把该 URL 配到 GitHub 仓库变量 `WEB_URL`，Release 工作流打包时会写入客户端。
+
 ## 打包 Windows 客户端
 
 ```bash

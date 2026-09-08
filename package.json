@@ -13,9 +13,15 @@
     "build:client": "pnpm --filter @ai-finance/client build",
     "pack:win": "pnpm --filter @ai-finance/client pack:win",
     "start": "pnpm --filter @ai-finance/web start",
-    "lint": "pnpm -r lint"
+    "lint": "pnpm -r lint",
+    "vercel:link": "vercel link",
+    "vercel:env:pull": "vercel env pull web/.env.vercel.local",
+    "deploy:preview": "vercel deploy --yes",
+    "deploy": "vercel deploy --prod --yes",
+    "deploy:vercel": "bash scripts/deploy-vercel.sh --prod"
   },
   "devDependencies": {
-    "concurrently": "^9.2.1"
+    "concurrently": "^9.2.1",
+    "vercel": "^48.12.1"
   }
 }
