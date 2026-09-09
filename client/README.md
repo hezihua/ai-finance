@@ -31,4 +31,4 @@ WEB_URL=https://your-web.example pnpm pack:win
 
 | 变量 | 默认 | 说明 |
 | --- | --- | --- |
-| `WEB_URL` | `http://localhost:3000` | 客户端加载的 Web 地址（打包时写入） |
+| `WEB_URL` | 开发 `http://localhost:3000` / 打包 `https://ai-finance-web-1xw6.vercel.app` | 可覆盖默认值 |

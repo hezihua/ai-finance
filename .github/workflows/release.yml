@@ -26,7 +26,7 @@ jobs:
         working-directory: client
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: false
-          WEB_URL: ${{ vars.WEB_URL }}
+          WEB_URL: ${{ vars.WEB_URL || 'https://ai-finance-web-1xw6.vercel.app' }}
           ELECTRON_MIRROR: https://npmmirror.com/mirrors/electron/
           ELECTRON_BUILDER_BINARIES_MIRROR: https://npmmirror.com/mirrors/electron-builder-binaries/
         run: pnpm pack:win
@@ -55,4 +55,4 @@ jobs:
 
             - [Windows x64 便携版](https://github.com/hezihua/ai-finance/releases/latest/download/ai-finance-win32-x64.exe)
 
-            桌面端会加载 Web 服务地址（打包时的 `WEB_URL`）。开发调试请先启动 Web：`pnpm dev:web`。
+            桌面端默认加载 [https://ai-finance-web-1xw6.vercel.app](https://ai-finance-web-1xw6.vercel.app)。本地调试请先启动 Web：`pnpm dev:web`。

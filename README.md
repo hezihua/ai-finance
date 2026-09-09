@@ -6,12 +6,16 @@
 浏览器 / Electron → ai-finance (Next.js) → 同花顺 REST API (fuyao.aicubes.cn)
 ```
 
+## 在线体验
+
+- Web：[https://ai-finance-web-1xw6.vercel.app](https://ai-finance-web-1xw6.vercel.app)
+
 ## 下载桌面客户端
 
 - [Windows x64 便携版 (.exe)](https://github.com/hezihua/ai-finance/releases/latest/download/ai-finance-win32-x64.exe)
 - [全部版本 / Release](https://github.com/hezihua/ai-finance/releases/latest)
 
-> 客户端是 Electron 壳，默认加载打包时写入的 `WEB_URL`。本地使用请先启动 Web（`pnpm dev:web`），或发布时设置仓库变量 `WEB_URL` 指向线上站点。
+> 客户端是 Electron 壳：**本地开发**默认 `http://localhost:3000`；**打包 exe**默认写入线上 Web：[https://ai-finance-web-1xw6.vercel.app](https://ai-finance-web-1xw6.vercel.app)。可用 `WEB_URL` 覆盖。
 
 ## Monorepo 结构
 
@@ -56,7 +60,7 @@ pnpm dev:all
 
 访问 Web：[http://localhost:3000](http://localhost:3000)
 
-Electron 默认加载 `http://localhost:3000`，可通过 `WEB_URL` 覆盖。
+本地 Electron：`pnpm dev:all`（自动连 `localhost:3000`）。打包：`pnpm pack:win`（写入 Vercel 地址）。
 
 ## 部署到 Vercel（Web）
 
@@ -73,7 +77,7 @@ pnpm vercel:link
 #   HITHINK_FINANCE_API_KEY
 #   OPENROUTER_API_KEY（可选）
 #   OPENROUTER_MODEL（可选）
-#   OPENROUTER_HTTP_REFERER=https://你的项目.vercel.app
+#   OPENROUTER_HTTP_REFERER=https://ai-finance-web-1xw6.vercel.app
 #   OPENROUTER_APP_TITLE=ai-finance
 
 # 预览部署
@@ -85,13 +89,15 @@ pnpm deploy
 pnpm deploy:vercel
 ```
 
-部署成功后拿到 URL，例如 `https://ai-finance-xxx.vercel.app`，再打包桌面端：
+当前生产地址：`https://ai-finance-web-1xw6.vercel.app`
+
+打包桌面端（默认已指向该地址，也可显式指定）：
 
 ```bash
-WEB_URL=https://ai-finance-xxx.vercel.app pnpm pack:win
+pnpm pack:win
+# 或
+WEB_URL=https://ai-finance-web-1xw6.vercel.app pnpm pack:win
 ```
-
-也可把该 URL 配到 GitHub 仓库变量 `WEB_URL`，Release 工作流打包时会写入客户端。
 
 ## 打包 Windows 客户端
 
